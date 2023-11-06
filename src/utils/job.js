@@ -11,7 +11,7 @@ const setupJobs = () => {
     cron.schedule('*/2 * * * *', async() => {
         const response = await emailService.fetchPendingEmails();
         response.forEach((email) => {
-            sender.sendEmail({
+            sender.sendMail({
                 to: email.recepientEmail,
                 subject: email.subject,
                 text: email.content
@@ -20,7 +20,7 @@ const setupJobs = () => {
                     console.log(err);
                 } else {
                     console.log(data);
-                    await emailService.updateTicket(email.id, {status: 'SUCCESS'})
+                    await emailService.updateTicket(email.id, {status: "SUCCESS"})
                 }
             })
         });
